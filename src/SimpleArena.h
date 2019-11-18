@@ -38,7 +38,7 @@
 class SimpleArena {
 public:
     std::vector<bool> protagonist_vertex;
-    std::vector<std::list<unsigned int> > priorities;
+    std::vector<unsigned int > priorities;
     std::vector<std::list<unsigned int> > successors;
     unsigned int numVertices() {
         assert(priorities.size() == successors.size() &&

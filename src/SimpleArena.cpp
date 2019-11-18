@@ -37,13 +37,8 @@ void SimpleArena::print() {
     std::cout << "parity " << this->numVertices() - 1 << ";" << std::endl;
     for (int i = 0; i < this->numVertices(); i++) {
         std::cout << i << " ";
-        auto first_priority = this->priorities[i].begin();
-        assert(first_priority != this->priorities[i].end());
-        std::cout << *first_priority;
-        first_priority++;
-        // for the rest we pad with commas
-        std::for_each(first_priority, this->priorities[i].end(),
-                      [] (unsigned int& p) { std::cout << "," << p;});
+        unsigned int first_priority = this->priorities[i];
+        std::cout << first_priority;
         std::cout << " " << (int)!this->protagonist_vertex[i] << " ";
         auto first_successor = this->successors[i].begin();
         assert(first_successor != this->successors[i].end());

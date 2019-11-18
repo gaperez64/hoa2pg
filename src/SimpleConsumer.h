@@ -43,16 +43,16 @@
 class SimpleConsumer : public cpphoafparser::HOAConsumer {
 private:
     const Cudd& mgr;
-    const std::map<std::string, unsigned int>& global_signals;
     SimpleAutomaton& automaton;
-    std::vector<unsigned int> signals;
     BDD labelBDD(label_expr::ptr labelExpr);
+    std::vector<std::string> names;
 
 public:
+    std::vector<int> uinputs;
+    std::vector<int> cinputs;
     SimpleConsumer(Cudd& mgr, std::map<std::string,
                    unsigned int>& g_sig,
                    SimpleAutomaton& a) : mgr(mgr),
-                                         global_signals(g_sig),
                                          automaton(a) {}
     virtual void addStartStates(const int_list& stateConjunction) override;
     virtual void setAPs(const std::vector<std::string>& aps) override;

@@ -49,11 +49,16 @@ void SimpleConsumer::addStartStates(const int_list& stateConjunction) {
 }
 
 void SimpleConsumer::setAPs(const std::vector<std::string>& aps) {
+    int nextid = 0;
     for (const std::string& ap : aps) {
-        auto sindex = global_signals.find(ap);
-        assert(sindex != global_signals.end());
-        signals.push_back(sindex->second);
+        names.push_back(ap);
+        if (ap.starts_with("controllable_"))
+            cinputs.push_back(nextid);
+        else
+            uinputs.push_back(nextid);
+        nextid++;
     }
+    assert(uinputs.size() > 0 && cinputs.size() > 0);
 }
 
 void SimpleConsumer::addState(unsigned int id,
@@ -89,8 +94,7 @@ BDD SimpleConsumer::labelBDD(label_expr::ptr labelExpr) {
         case label_expr::EXP_FALSE:
             return this->mgr.bddZero();
         case label_expr::EXP_ATOM:  // getAtom()
-            return this->mgr.bddVar(
-                this->signals[labelExpr->getAtom().getAPIndex()]);
+            return this->mgr.bddVar(labelExpr->getAtom().getAPIndex());
     }
 }
 

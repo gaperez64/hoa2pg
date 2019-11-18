@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++11 -O3
 HEADERS=src/SimpleAutomaton.h src/SimpleConsumer.h src/SimpleArena.h
-SOURCES=src/SimpleConsumer.cpp src/hoafs2gpg.cpp \
+SOURCES=src/SimpleConsumer.cpp src/hoa2pg.cpp \
 	src/SimpleArena.cpp src/SimpleAutomaton.cpp
 CUDD_PATH=cudd-2.5.1
 CUDD_INCLUDE=$(CUDD_PATH)/include
@@ -15,12 +15,11 @@ CUDD_LIBS=$(CUDD_PATH)/obj/libobj.a \
 CPPHOAFP_INCLUDE=include
 CPPHOAFP_HDRS=$(CPPHOAFP_INCLUDE)/cpphoafparser/*/*.hh
 
-hoafs2gpg: $(HEADERS) $(SOURCES) $(CUDD_HDRS) $(CUDD_LIBS) $(CPPHOAFP_HDRS)
-	$(CXX) $(CXXFLAGS) $(SOURCES) $(CUDD_LIBS) -o hoafs2gpg \
+hoa2pg: $(HEADERS) $(SOURCES) $(CUDD_HDRS) $(CUDD_LIBS) $(CPPHOAFP_HDRS)
+	$(CXX) $(CXXFLAGS) $(SOURCES) $(CUDD_LIBS) -o hoa2pg \
 		-I $(CUDD_INCLUDE) \
 		-I $(CPPHOAFP_INCLUDE)
 
 .PHONY: tests
 tests:
-	./allexamples2gpg.sh
 	./allexamples2pg.sh
