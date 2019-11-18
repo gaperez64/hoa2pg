@@ -70,6 +70,7 @@ static unsigned int usage(const std::string& error = "") {
 
     printVersion(std::cout);
     std::cout << " A single argument is expected: an extended HOA-format";
+    std::cout << std::endl;
     std::cout << " file with a deterministic parity automaton" << std::endl;
 
     return (error != "" ? 2 : 0);
