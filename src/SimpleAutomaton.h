@@ -38,7 +38,9 @@
 class SimpleAutomaton {
 public:
     unsigned int start;
-    std::vector<std::list<unsigned int> > priorities;
+    std::vector<unsigned int> uinputs;
+    std::vector<unsigned int> cinputs;
+    std::vector<unsigned int> priorities;
     std::vector<std::list<std::pair<BDD, unsigned int> > > successors;
     unsigned int numStates() {
         assert(priorities.size() == successors.size());

@@ -48,12 +48,7 @@ private:
     std::vector<std::string> names;
 
 public:
-    std::vector<int> uinputs;
-    std::vector<int> cinputs;
-    SimpleConsumer(Cudd& mgr, std::map<std::string,
-                   unsigned int>& g_sig,
-                   SimpleAutomaton& a) : mgr(mgr),
-                                         automaton(a) {}
+    SimpleConsumer(Cudd& mgr, SimpleAutomaton& a) : mgr(mgr), automaton(a) {}
     virtual void addStartStates(const int_list& stateConjunction) override;
     virtual void setAPs(const std::vector<std::string>& aps) override;
     virtual void addState(unsigned int id,

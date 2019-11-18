@@ -52,13 +52,13 @@ void SimpleConsumer::setAPs(const std::vector<std::string>& aps) {
     int nextid = 0;
     for (const std::string& ap : aps) {
         names.push_back(ap);
-        if (ap.starts_with("controllable_"))
-            cinputs.push_back(nextid);
+        if (ap.find("controllable_") == 0)
+            automaton.cinputs.push_back(nextid);
         else
-            uinputs.push_back(nextid);
+            automaton.uinputs.push_back(nextid);
         nextid++;
     }
-    assert(uinputs.size() > 0 && cinputs.size() > 0);
+    assert(automaton.uinputs.size() > 0 && automaton.cinputs.size() > 0);
 }
 
 void SimpleConsumer::addState(unsigned int id,
@@ -73,7 +73,7 @@ void SimpleConsumer::addState(unsigned int id,
     bool first = true;
     for (unsigned int acc : *accSignature) {
         assert(first && automaton.priorities.size() == id);
-        automaton.priorities.push_back({acc});
+        automaton.priorities.push_back(acc);
         first = false;
     }
 }

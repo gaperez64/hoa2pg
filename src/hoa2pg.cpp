@@ -117,9 +117,9 @@ int main(int argc, char* argv[]) {
     mgr.AutodynEnable(CUDD_REORDER_SIFT);
     std::vector<SimpleAutomaton> parity_automata;
     std::shared_ptr<std::ifstream> in;
-    in.reset(new std::ifstream(ehoafile->c_str()));
+    in.reset(new std::ifstream(ehoafile.c_str()));
     if (!*in) {
-        std::cerr << "Error opening file " + *ehoafile << std::endl;
+        std::cerr << "Error opening file " + ehoafile << std::endl;
         return 1;
     }
 
