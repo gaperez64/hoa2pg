@@ -34,6 +34,7 @@
 #include <list>
 #include <vector>
 
+#include "cpphoafparser/util/int_or_string.hh"
 #include "cpphoafparser/consumer/hoa_consumer.hh"
 
 #include "cuddObj.hh"
@@ -51,6 +52,8 @@ public:
     SimpleConsumer(Cudd& mgr, SimpleAutomaton& a) : mgr(mgr), automaton(a) {}
     virtual void addStartStates(const int_list& stateConjunction) override;
     virtual void setAPs(const std::vector<std::string>& aps) override;
+    virtual void addMiscHeader(const std::string& name,
+        const std::vector<cpphoafparser::IntOrString>& content) override;
     virtual void addState(unsigned int id,
                           std::shared_ptr<std::string> info,
                           label_expr::ptr labelExpr,
@@ -78,6 +81,7 @@ public:
     }
     virtual void setAcceptanceCondition(unsigned int numberOfSets,
                                         acceptance_expr::ptr accExpr) override {}
+    // TODO: check we get parity min even
     virtual void provideAcceptanceName(const std::string& name,
         const std::vector<cpphoafparser::IntOrString>& extraInfo) override {}
     virtual void setName(const std::string& name) override {}
@@ -85,8 +89,6 @@ public:
                          std::shared_ptr<std::string> version) override {}
     virtual void addProperties(const std::vector<std::string>& properties)
         override {}
-    virtual void addMiscHeader(const std::string& name,
-        const std::vector<cpphoafparser::IntOrString>& content) override {}
     virtual void notifyBodyStart() override {}
     virtual void notifyEndOfState(unsigned int stateId) override {}
     virtual void notifyEnd() override {}

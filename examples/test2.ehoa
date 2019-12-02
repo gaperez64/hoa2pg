@@ -3,6 +3,7 @@ name: "F(idle & X(!controllable_grant0 & !controllable_grant1 & !controllable_gr
 States: 12
 Start: 0
 AP: 7 "idle" "controllable_grant1" "controllable_grant3" "request0" "controllable_grant0" "controllable_grant2" "controllable_grant4"
+controllable-AP: 5 "controllable_grant1" "controllable_grant3" "controllable_grant0" "controllable_grant2" "controllable_grant4"
 acc-name: parity max even 4
 Acceptance: 4 Fin(3) & (Inf(2) | (Fin(1) & Inf(0)))
 properties: trans-labels explicit-labels state-acc colored complete

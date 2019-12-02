@@ -31,6 +31,7 @@
 #include <list>
 #include <vector>
 
+#include "cpphoafparser/util/int_or_string.hh"
 #include "cpphoafparser/ast/boolean_expression.hh"
 #include "cpphoafparser/consumer/hoa_consumer.hh"
 
@@ -49,15 +50,37 @@ void SimpleConsumer::addStartStates(const int_list& stateConjunction) {
 }
 
 void SimpleConsumer::setAPs(const std::vector<std::string>& aps) {
-    int nextid = 0;
     for (const std::string& ap : aps) {
         names.push_back(ap);
-        if (ap.find("controllable_") == 0)
-            automaton.cinputs.push_back(nextid);
-        else
+    }
+}
+
+void SimpleConsumer::addMiscHeader(const std::string& name,
+    const std::vector<cpphoafparser::IntOrString>& content) {
+
+    assert(name.find("controllable-AP") != std::string::npos);
+
+    int nextid = 0;
+    for (const std::string& name : names) {
+        bool found = false;
+        bool skip = true;
+        for (const cpphoafparser::IntOrString& ap : content) {
+            if (skip) {
+                skip = false;
+                continue;
+            }
+            // assert(ap.wasStringQuoted());
+            if (name.find(ap.getString()) != std::string::npos) {
+                automaton.cinputs.push_back(nextid);
+                found = true;
+                break;
+            }
+        }
+        if (!found)
             automaton.uinputs.push_back(nextid);
         nextid++;
     }
+
     assert(automaton.uinputs.size() > 0 && automaton.cinputs.size() > 0);
 }
 

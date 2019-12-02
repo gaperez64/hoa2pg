@@ -19,7 +19,3 @@ hoa2pg: $(HEADERS) $(SOURCES) $(CUDD_HDRS) $(CUDD_LIBS) $(CPPHOAFP_HDRS)
 	$(CXX) $(CXXFLAGS) $(SOURCES) $(CUDD_LIBS) -o hoa2pg \
 		-I $(CUDD_INCLUDE) \
 		-I $(CPPHOAFP_INCLUDE)
-
-.PHONY: tests
-tests:
-	./allexamples2pg.sh
