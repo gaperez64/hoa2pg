@@ -3,7 +3,9 @@ played on graphs (not on automata!).
 
 ## Important notice
 Currently only state-based acceptance is allowed. For parity automata, that
-means that states are coloured instead of transitions.
+means that states are coloured instead of transitions. As a further
+restriction, the translator implictly assumes the acceptance condition
+to be _max even_.
 
 ## Dependencies
 * cpphoafparser (the required sources are included here)
