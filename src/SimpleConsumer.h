@@ -47,6 +47,7 @@ private:
     SimpleAutomaton& automaton;
     BDD labelBDD(label_expr::ptr labelExpr);
     std::vector<std::string> names;
+    std::vector<std::string> cNames;
 
 public:
     SimpleConsumer(Cudd& mgr, SimpleAutomaton& a) : mgr(mgr), automaton(a) {}

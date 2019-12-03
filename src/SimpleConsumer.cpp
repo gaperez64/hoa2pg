@@ -49,28 +49,15 @@ void SimpleConsumer::addStartStates(const int_list& stateConjunction) {
     }
 }
 
-void SimpleConsumer::setAPs(const std::vector<std::string>& aps) {
-    for (const std::string& ap : aps) {
-        names.push_back(ap);
-    }
-}
-
-void SimpleConsumer::addMiscHeader(const std::string& name,
-    const std::vector<cpphoafparser::IntOrString>& content) {
-
-    assert(name.find("controllable-AP") != std::string::npos);
-
+void addControllable(const std::vector<std::string>& names,
+                     const std::vector<std::string>& content,
+                     SimpleAutomaton& automaton) {
     int nextid = 0;
     for (const std::string& name : names) {
         bool found = false;
-        bool skip = true;
-        for (const cpphoafparser::IntOrString& ap : content) {
-            if (skip) {
-                skip = false;
-                continue;
-            }
+        for (const std::string& ap : content) {
             // assert(ap.wasStringQuoted());
-            if (name.find(ap.getString()) != std::string::npos) {
+            if (name.find(ap) != std::string::npos) {
                 automaton.cinputs.push_back(nextid);
                 found = true;
                 break;
@@ -82,6 +69,34 @@ void SimpleConsumer::addMiscHeader(const std::string& name,
     }
 
     assert(automaton.uinputs.size() > 0 && automaton.cinputs.size() > 0);
+}
+
+void SimpleConsumer::setAPs(const std::vector<std::string>& aps) {
+    for (const std::string& ap : aps) {
+        names.push_back(ap);
+    }
+    if (names.size() > 0 && cNames.size() > 0)
+        addControllable(names, cNames, automaton);
+}
+
+void SimpleConsumer::addMiscHeader(const std::string& name,
+    const std::vector<cpphoafparser::IntOrString>& content) {
+
+    assert(name.find("controllable-AP") != std::string::npos);
+    
+    // we have to skip the first one which only gives the length
+    // and is not a string
+    bool skip = true;
+    for (const cpphoafparser::IntOrString& ap : content) {
+        if (skip) {
+            skip = false;
+            continue;
+        }
+        cNames.push_back(ap.getString());
+    }
+
+    if (names.size() > 0 && cNames.size() > 0)
+        addControllable(names, cNames, automaton);
 }
 
 void SimpleConsumer::addState(unsigned int id,
