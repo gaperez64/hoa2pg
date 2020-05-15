@@ -30,6 +30,7 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <memory>
 
 #include "cpphoafparser/util/int_or_string.hh"
 #include "cpphoafparser/ast/boolean_expression.hh"

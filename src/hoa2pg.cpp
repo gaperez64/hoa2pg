@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
     std::string ehoafile;
     unsigned int sindex = 0;
     while (!arguments.empty()) {
-        const std::string& arg = arguments.front();
+        std::string arg(arguments.front());
         arguments.pop();
         if (arg.compare(0, 2, "--") == 0) {
             if (arg == "--help") {

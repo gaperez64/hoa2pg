@@ -1,4 +1,4 @@
-CXX=g++
+CXX=clang++
 CXXFLAGS=-std=c++11 -O3
 HEADERS=src/SimpleAutomaton.h src/SimpleConsumer.h src/SimpleArena.h
 SOURCES=src/SimpleConsumer.cpp src/hoa2pg.cpp \
